@@ -1,0 +1,45 @@
+name: Deploy Rundeck
+run-name: Deploy Rundeck
+on: 
+  workflow_dispatch:
+    inputs:
+      DEPLOYMENT_ENVIRONMENT:
+        description: 'Deployment environment of Infra. Expected values are ''dev'', ''sandpit'', ''test'', ''prod'''
+        default: ''
+        type: choice
+        options:
+        - 'dev'
+        - 'test'
+        - 'prod'
+
+      SERVER_PUB_IP:
+        description: 'Input field for JSON string. If empty default config will be used. For more information see README.md.'
+        default: '34.215.228.84'
+        type: string
+     
+jobs:
+  Deploy-App:
+    runs-on: ubuntu-latest
+    env:
+      ENV1: ${{ secrets.ENV1 }}
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          lfs: 'true'
+
+      - name: Configure aws session
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: "arn:aws:iam::734162740650:instance-profile/githubtokenrole"
+          role-session-name: GitHubActionSession
+          aws-region: "us-west-2"
+          role-duration-seconds: 3600 
+
+      - name: Check identity for AWS
+        shell: bash
+        run: aws sts get-caller-identity
+
+
