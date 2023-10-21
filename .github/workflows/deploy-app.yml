@@ -22,6 +22,7 @@ jobs:
         fi
       if: success()
 
+
     - name: SSH into EC2
       run: |
         ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@34.215.228.84
