@@ -27,7 +27,7 @@ jobs:
       run: |
         pwd
         ls
-        ssh -tt -i "js-us-west-2-kp.pem" ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
+        ssh -tt -o StrictHostKeyChecking=no -i "js-us-west-2-kp.pem" ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
         #ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@34.215.228.84
       env:
         EC2_INSTANCE_IP: "34.215.228.84"
