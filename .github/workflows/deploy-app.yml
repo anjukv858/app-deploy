@@ -23,6 +23,7 @@ jobs:
         ssh-keyscan ec2-34-215-228-84.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
 
         # Get project code from github
+        echo "cloning project repo"
         git clone https://github.com/anjukv858/app-deploy.git
         ls 
         cd app-deploy
