@@ -25,42 +25,7 @@ jobs:
     - name: SSH into EC2 Instance
       run: ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
 
-# name: Connect to AWS EC2
-
-# on:
-#   push:
-#     branches:
-#       - main  # Adjust to your branch name 
-
-# jobs:
-#   connect-to-ec2:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-
-#     - name: Install AWS CLI
-#       run: |
-#         if ! command -v aws &>/dev/null; then
-#           curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-#           unzip awscliv2.zip
-#           sudo ./aws/install
-#         fi
-#       if: success()
-
-
-#     - name: SSH into EC2
-#       run: |
-#         pwd
-#         ls
-#         chmod 600 js-us-west-2-kp.pem
-#         ssh -tt -o StrictHostKeyChecking=no -i js-us-west-2-kp.pem ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
-
-#         git clone https://github.com/anjukv858/app-deploy.git
-#         ls 
-#         cd app-deploy
-#         ls
-#       env:
-#         EC2_INSTANCE_IP: "34.215.228.84"
-#       if: success()
+    - name: execute cmd
+      run: |
+        ssh -i ~/.ssh/id_rsa ec2-user@$ec2-34-215-228-84.us-west-2.compute.amazonaws.com "pwd && whoami"
+        #ssh -i ~/.ssh/id_rsa ec2-user@$EC2_INSTANCE_IP "cd /path/to/your/project/folder/your-repo && ls"
