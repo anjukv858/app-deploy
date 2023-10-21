@@ -18,16 +18,12 @@ jobs:
         PRIVATE_KEY: ${{ secrets.YOUR_SSH_SECRET_NAME }}
       run: |
         mkdir -p ~/.ssh
-        cat js-us-west-2-kp.pem > ~/.ssh/id_rsa
+        echo cat js-us-west-2-kp.pem > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan ec2-34-215-228-84.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
 
-
-        ssh -i ~/.ssh/id_rsa ec2-user@$ec2-34-215-228-84.us-west-2.compute.amazonaws.com "pwd && whoami"
-       
-
-    # - name: SSH into EC2 Instance
-    #   run: ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
+    - name: SSH into EC2 Instance
+      run: ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
 
 # name: Connect to AWS EC2
 
