@@ -30,8 +30,10 @@ jobs:
         chmod 600 js-us-west-2-kp.pem
         ssh -tt -o StrictHostKeyChecking=no -i js-us-west-2-kp.pem ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
 
-        #ssh -tt -o StrictHostKeyChecking=no -i "js-us-west-2-kp.pem" ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
-        #ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@34.215.228.84
+        git clone https://github.com/anjukv858/app-deploy.git
+        ls 
+        cd app-deploy
+        ls
       env:
         EC2_INSTANCE_IP: "34.215.228.84"
       if: success()
