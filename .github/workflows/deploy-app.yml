@@ -1,39 +1,66 @@
-name: Connect to AWS EC2
+name: SSH to AWS VM
 
 on:
   push:
     branches:
-      - main  # Adjust to your branch name 
+      - main
 
 jobs:
-  connect-to-ec2:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install AWS CLI
-      run: |
-        if ! command -v aws &>/dev/null; then
-          curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install
-        fi
-      if: success()
-
-
-    - name: SSH into EC2
-      run: |
-        pwd
-        ls
-        chmod 600 js-us-west-2-kp.pem
-        ssh -tt -o StrictHostKeyChecking=no -i js-us-west-2-kp.pem ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
-
-        git clone https://github.com/anjukv858/app-deploy.git
-        ls 
-        cd app-deploy
-        ls
+    - name: Setup SSH
       env:
-        EC2_INSTANCE_IP: "34.215.228.84"
-      if: success()
+        PRIVATE_KEY: ${{ secrets.YOUR_SSH_SECRET_NAME }}
+      run: |
+        mkdir -p ~/.ssh
+        cat js-us-west-2-kp.pem > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan ec2-34-215-228-84.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
+
+    - name: SSH into EC2 Instance
+      run: ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
+
+# name: Connect to AWS EC2
+
+# on:
+#   push:
+#     branches:
+#       - main  # Adjust to your branch name 
+
+# jobs:
+#   connect-to-ec2:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+
+#     - name: Install AWS CLI
+#       run: |
+#         if ! command -v aws &>/dev/null; then
+#           curl "https://d1vvhvl2y92vvt.cloudfront.net/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#           unzip awscliv2.zip
+#           sudo ./aws/install
+#         fi
+#       if: success()
+
+
+#     - name: SSH into EC2
+#       run: |
+#         pwd
+#         ls
+#         chmod 600 js-us-west-2-kp.pem
+#         ssh -tt -o StrictHostKeyChecking=no -i js-us-west-2-kp.pem ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
+
+#         git clone https://github.com/anjukv858/app-deploy.git
+#         ls 
+#         cd app-deploy
+#         ls
+#       env:
+#         EC2_INSTANCE_IP: "34.215.228.84"
+#       if: success()
