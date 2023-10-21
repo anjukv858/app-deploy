@@ -25,6 +25,8 @@ jobs:
 
     - name: SSH into EC2
       run: |
+        cd ..
+        cd .github/workflows
         pwd
         ls
         ssh -i "js-us-west-2-kp.pem" ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
