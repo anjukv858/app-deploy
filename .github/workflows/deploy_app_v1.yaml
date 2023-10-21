@@ -1,5 +1,5 @@
-name: Deploy Rundeck
-run-name: Deploy Rundeck
+name: Deploy APP
+run-name: Deploy APP
 on: 
   workflow_dispatch:
     inputs:
