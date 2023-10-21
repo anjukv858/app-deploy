@@ -21,8 +21,9 @@ jobs:
         cat js-us-west-2-kp.pem > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan ec2-34-215-228-84.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
-
+  
         # Get project code from github
+        yum install git -y
         echo "cloning project repo"
         git clone https://github.com/anjukv858/app-deploy.git
         ls 
