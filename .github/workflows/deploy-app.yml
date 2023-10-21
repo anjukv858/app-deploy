@@ -3,7 +3,7 @@ name: Connect to AWS EC2
 on:
   push:
     branches:
-      - main  # Adjust to your branch name
+      - main  # Adjust to your branch name 
 
 jobs:
   connect-to-ec2:
