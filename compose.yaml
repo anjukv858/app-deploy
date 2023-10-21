@@ -1,0 +1,52 @@
+
+
+version: '3'
+
+services:
+  web:
+    restart: always
+    build: ./app
+    ports:
+      - '5000:5000'
+    expose:
+      - "5000"
+    links:
+      - redis
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - REDIS_HOST=<public_ip>
+  redis:
+    image: redis
+    depends_on:
+      - mysql
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=test
+      # So you don't have to use root, but you can if you like
+      - MYSQL_USER=user
+      # You can use whatever password you like
+      - MYSQL_PASSWORD=jayan
+      # Password for root access
+      - MYSQL_ROOT_PASSWORD=jayan
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
+  redis-data:
