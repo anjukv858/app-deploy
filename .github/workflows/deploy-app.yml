@@ -23,20 +23,6 @@ jobs:
         ssh-keyscan ec2-34-215-228-84.us-west-2.compute.amazonaws.com >> ~/.ssh/known_hosts
 
 
-        ssh -i ~/.ssh/id_rsa ec2-user@$ec2-34-215-228-84.us-west-2.compute.amazonaws.com "pwd && git clone https://github.com/yourusername/your-repo.git"
-        ssh -i ~/.ssh/id_rsa ec2-user@$ec2-34-215-228-84.us-west-2.compute.amazonaws.com " ls"
-        
-        # # Get project code from github
-        # yum install git -y
-        # echo "cloning project repo"
-        # git clone https://github.com/anjukv858/app-deploy.git
-        # ls 
-        # cd app-deploy
-        # ls        
-
-    # - name: SSH into EC2 Instance
-    #   run: ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com
-
 # name: Connect to AWS EC2
 
 # on:
