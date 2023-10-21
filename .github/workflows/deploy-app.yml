@@ -28,4 +28,6 @@ jobs:
     - name: execute cmd
       run: |
         ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com 'pwd'
+        # install git
+        ssh -i ~/.ssh/id_rsa ec2-user@ec2-34-215-228-84.us-west-2.compute.amazonaws.com 'sudo yum install git -y'
         #ssh -i ~/.ssh/id_rsa ec2-user@$EC2_INSTANCE_IP "cd /path/to/your/project/folder/your-repo && ls" 
